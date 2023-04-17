@@ -33,3 +33,6 @@ class Task(models.Model):
         max_length=255, default=Priorities.NO_PRIORITY, choices=Priorities.choices
     )
     tags = models.ManyToManyField(Tag)
+
+    def __str__(self):
+        return self.name
