@@ -21,8 +21,12 @@ class Task(models.Model):
 
     name = models.CharField(max_length=255, verbose_name="Название")
     description = models.TextField(max_length=1000, verbose_name="Описание")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author")
-    doer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="task_doer")
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, related_name="author"
+    )
+    doer = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, related_name="task_doer"
+    )
     date_create = models.DateField(auto_now_add=True, verbose_name="Дата создания")
     date_change = models.DateField(auto_now=True, verbose_name="Дата изменения")
     date_deadline = models.DateField(blank=True, null=True, verbose_name="Deadline")
