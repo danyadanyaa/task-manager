@@ -6,7 +6,7 @@ from main.models import User, Tag, Task
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'date_of_birth', 'phone')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email',)
 
 
 class TagSerializer(serializers.ModelSerializer):
