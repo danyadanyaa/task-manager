@@ -12,7 +12,7 @@ task_manager_admin_site = TaskManagerAdminSite(name="Task manager admin")
 
 @admin.register(User, site=task_manager_admin_site)
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ["username", "email", "role"]
+    list_display = ["username", "email", "role", "is_staff"]
 
 
 @admin.register(Tag, site=task_manager_admin_site)
