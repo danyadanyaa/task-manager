@@ -19,7 +19,6 @@ class TagViewSet(viewsets.ModelViewSet):
     serializer_class = TagSerializer
     permission_classes = (
         IsStaffDeleteOrAuth,
-        IsAuthenticatedOrReadOnly,
     )
 
 
@@ -31,7 +30,6 @@ class TaskViewSet(viewsets.ModelViewSet):
     filterset_class = TaskFilter
     permission_classes = (
         IsStaffDeleteOrAuth,
-        IsAuthenticatedOrReadOnly,
     )
 
     def perform_create(self, serializer):
