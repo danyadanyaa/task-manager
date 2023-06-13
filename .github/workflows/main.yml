@@ -1,0 +1,29 @@
+name: Coverals and test
+
+on:
+  pull_request:
+    branches:
+      - 'develop'
+      - 'feature/GAcicd'
+  push:
+    branches:
+      - 'develop'
+      - 'feature/GAcicd'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Get report file
+        run: |
+          docker-compose --file docker-compose.ci.yml run --rm api make -B test
+          ls
+      - name: Run coveralls
+        env:
+          COVERAGE: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip3 install --upgrade coveralls
+          coveralls --service=github
