@@ -17,6 +17,9 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.conf import settings
 
+from task_manager.services import strtobool
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -186,3 +189,9 @@ ROLLBAR = {
     'code_version': '1.0',
     'root': BASE_DIR,
 }
+
+EMAIL_USE_TLS = strtobool(os.environ.get("EMAIL_USE_TLS", "0"))
+EMAIL_HOST = os.environ["EMAIL_HOST"]
+EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
+EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
+EMAIL_PORT = os.environ["EMAIL_PORT"]
