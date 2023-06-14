@@ -19,7 +19,8 @@ services:
       DATABASE_PORT: 5432
       DJANGO_ENV: dev
       DJANGO_SECRET_KEY: secret_key
-    command: python manage.py runserver 0.0.0.0:8000
+      NEW_RELIC_CONFIG_FILE: /app/newrelic.ini
+    command: newrelic-admin run-program python manage.py runserver 0.0.0.0:8000
 
   db:
     image: postgres:11.4
