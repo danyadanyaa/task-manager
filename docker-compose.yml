@@ -20,6 +20,11 @@ services:
       DJANGO_ENV: dev
       DJANGO_SECRET_KEY: secret_key
       NEW_RELIC_CONFIG_FILE: /app/newrelic.ini
+      EMAIL_USE_TLS:
+      EMAIL_HOST:
+      EMAIL_HOST_USER:
+      EMAIL_HOST_PASSWORD:
+      EMAIL_PORT:
     command: newrelic-admin run-program python manage.py runserver 0.0.0.0:8000
 
   db:
