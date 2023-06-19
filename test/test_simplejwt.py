@@ -7,6 +7,8 @@ from rest_framework.test import APITestCase
 
 from factories import UserFactory
 
+from main.models import User
+
 
 class TestJWTAuth(APITestCase):
     token_url = reverse("token_obtain_pair")
@@ -15,12 +17,16 @@ class TestJWTAuth(APITestCase):
 
     @staticmethod
     def create_user():
-        return UserFactory.create()
+        user_attr = UserFactory.build()
+        User.objects.create_user(**user_attr)
+        return user_attr
 
-    def token_request(self, username: str = None, password: str = "password"):
+    def token_request(self, username: str = None, password: str = None):
         client = self.client_class()
         if not username:
-            username = self.create_user().username
+            user = self.create_user()
+            username = user['username']
+            password = user['password']
         return client.post(self.token_url, data={"username": username, "password": password})
 
     def refresh_token_request(self, refresh_token: str):
@@ -38,7 +44,7 @@ class TestJWTAuth(APITestCase):
         assert response.json()["access"]
 
     def test_unsuccessful_auth(self):
-        response = self.token_request(username="incorrect_username")
+        response = self.token_request(username="incorrect_username", password="incorrect_password")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_refresh_token(self):

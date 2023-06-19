@@ -13,6 +13,8 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase, APIClient
 from main.models import User, Tag, Task
 
+from test.factories import UserFactory, AdminFactory
+
 
 class TestViewSetBase(APITestCase):
     user: User = None
@@ -20,23 +22,24 @@ class TestViewSetBase(APITestCase):
     client: APIClient = None
     basename: str
 
-    user_attributes = {
-        "username": "johnsmith",
-        "first_name": "John",
-        "last_name": "Smith",
-        "email": "john@test.com",
-        "date_of_birth": "2000-01-01",
-        "phone": "+79000000000",
-    }
-
-    admin_attributes = {
-        "username": "admin",
-        "first_name": "admin",
-        "last_name": "admin",
-        "email": "admin@admin.admin",
-        "date_of_birth": "2000-01-01",
-        "phone": "+79000000000",
-    }
+    user_attributes = UserFactory.build()
+    # user_attributes = {
+    #     "username": "johnsmith",
+    #     "first_name": "John",
+    #     "last_name": "Smith",
+    #     "email": "john@test.com",
+    #     "date_of_birth": "2000-01-01",
+    #     "phone": "+79000000000",
+    # }
+    admin_attributes = AdminFactory.build()
+    # admin_attributes = {
+    #     "username": "admin",
+    #     "first_name": "admin",
+    #     "last_name": "admin",
+    #     "email": "admin@admin.admin",
+    #     "date_of_birth": "2000-01-01",
+    #     "phone": "+79000000000",
+    # }
 
     tag_attributes = {
         "name": "tag_test",

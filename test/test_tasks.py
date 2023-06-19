@@ -1,9 +1,6 @@
 import datetime
 
-from rest_framework import response, status
 from test.base import TestViewSetBase
-
-from main.models import Task, User
 
 
 class TestUserViewSet(TestViewSetBase):
@@ -20,6 +17,8 @@ class TestUserViewSet(TestViewSetBase):
 
     @staticmethod
     def expected_usr_tag(entity: dict, attributes: dict):
+        if 'password' in attributes:
+            attributes.pop('password')
         return {**attributes, "id": entity["id"]}
 
     @staticmethod
@@ -29,7 +28,7 @@ class TestUserViewSet(TestViewSetBase):
             "id": entity["id"],
             "author": entity["author"],
             "doer": entity["doer"],
-            "tags": entity["tags"],
+            "tags": entity["tags"]
         }
 
     @staticmethod
@@ -57,6 +56,8 @@ class TestUserViewSet(TestViewSetBase):
             },
             self.task_attributes,
         )
+        expected_response['author']['avatar_picture'] = task['author']['avatar_picture']
+        expected_response['doer']['avatar_picture'] = task['doer']['avatar_picture']
         assert task == expected_response
 
     def test_list(self):
@@ -103,6 +104,9 @@ class TestUserViewSet(TestViewSetBase):
                 self.task_attributes,
             ),
         ]
+        for element in expected_response:
+            element['author']['avatar_picture'] = task['author']['avatar_picture']
+            element['doer']['avatar_picture'] = task['doer']['avatar_picture']
         assert tasks == expected_response
 
     def test_retrieve(self):
@@ -127,6 +131,8 @@ class TestUserViewSet(TestViewSetBase):
             },
             self.task_attributes,
         )
+        retrieved_task['author']['avatar_picture'] = task['author']['avatar_picture']
+        retrieved_task['doer']['avatar_picture'] = task['doer']['avatar_picture']
         assert task_retrieve == retrieved_task
 
     def test_update(self):
@@ -151,6 +157,8 @@ class TestUserViewSet(TestViewSetBase):
             },
             data,
         )
+        retrieved_task['author']['avatar_picture'] = task['author']['avatar_picture']
+        retrieved_task['doer']['avatar_picture'] = task['doer']['avatar_picture']
         assert task_update == retrieved_task
 
     def test_delete(self):
@@ -183,6 +191,9 @@ class TestUserViewSet(TestViewSetBase):
                 self.task_attributes,
             )
         ]
+        for element in expected_response:
+            element['author']['avatar_picture'] = task['author']['avatar_picture']
+            element['doer']['avatar_picture'] = task['doer']['avatar_picture']
         assert list == expected_response
 
     def test_user_delete(self):
@@ -224,4 +235,7 @@ class TestUserViewSet(TestViewSetBase):
                 data,
             )
         ]
+        for element in expected_response:
+            element['author']['avatar_picture'] = another_task['author']['avatar_picture']
+            element['doer']['avatar_picture'] = another_task['doer']['avatar_picture']
         assert task_filter == expected_response
