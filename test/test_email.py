@@ -2,10 +2,8 @@ import datetime
 
 from unittest.mock import patch, MagicMock
 
-
 from django.core import mail
 from django.template.loader import render_to_string
-
 
 from main.models import Task, Tag
 from main.services.mail import send_assign_notification
@@ -13,8 +11,6 @@ from test.base import TestViewSetBase
 
 
 class TestSendEmail(TestViewSetBase):
-    tag: Tag = None
-    task: Task = None
     basename: str = 'tasks'
 
     task_attributes = {
@@ -27,26 +23,17 @@ class TestSendEmail(TestViewSetBase):
         "priority": "High",
     }
 
-    # tag_attributes = {
-    #     "name": "tag_test",
-    # }
-
     @staticmethod
     def make_data(entity: dict, attributes: dict):
         return {**attributes, "doer": entity["doer"], "tags": entity["tags"]}
 
-    def setUp(self) -> None:
-        super().setUp()
-        self.task = self.create(
-            self.make_data(
-                {"doer": self.user.id, "tags": [self.tag.id]}, self.task_attributes
-            )
-        )
-
     @patch.object(mail, "send_mail")
     def test_send_assign_notification(self, fake_sender: MagicMock) -> None:
         assignee = self.user
-        task = self.task
+        data = self.make_data(
+            {"doer": self.user.id, "tags": [self.tag.id]}, self.task_attributes
+        )
+        task = self.create(data)
 
         send_assign_notification(task["id"])
 
