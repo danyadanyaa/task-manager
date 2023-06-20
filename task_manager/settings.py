@@ -195,7 +195,7 @@ EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
 EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
 EMAIL_PORT = os.environ["EMAIL_PORT"]
 
-DJANGO_ENV = "dev"
+DJANGO_ENV = os.environ["DJANGO_ENV"]
 
 if DJANGO_ENV != "dev":
     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
