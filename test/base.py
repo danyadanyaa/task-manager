@@ -23,23 +23,8 @@ class TestViewSetBase(APITestCase):
     basename: str
 
     user_attributes = UserFactory.build()
-    # user_attributes = {
-    #     "username": "johnsmith",
-    #     "first_name": "John",
-    #     "last_name": "Smith",
-    #     "email": "john@test.com",
-    #     "date_of_birth": "2000-01-01",
-    #     "phone": "+79000000000",
-    # }
+
     admin_attributes = AdminFactory.build()
-    # admin_attributes = {
-    #     "username": "admin",
-    #     "first_name": "admin",
-    #     "last_name": "admin",
-    #     "email": "admin@admin.admin",
-    #     "date_of_birth": "2000-01-01",
-    #     "phone": "+79000000000",
-    # }
 
     tag_attributes = {
         "name": "tag_test",
