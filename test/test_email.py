@@ -27,10 +27,6 @@ class TestSendEmail(TestViewSetBase):
         "priority": "High",
     }
 
-    # tag_attributes = {
-    #     "name": "tag_test",
-    # }
-
     @staticmethod
     def make_data(entity: dict, attributes: dict):
         return {**attributes, "doer": entity["doer"], "tags": entity["tags"]}
