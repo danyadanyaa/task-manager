@@ -1,11 +1,3 @@
-# from http import HTTPStatus
-# from typing import List, Union
-#
-# from rest_framework.reverse import reverse
-# from rest_framework.test import APIClient, APITestCase
-# from rest_framework_simplejwt.tokens import AccessToken
-from rest_framework_simplejwt.tokens import AccessToken
-
 from http import HTTPStatus
 from typing import Union, List
 
